@@ -22,5 +22,5 @@ The state becomes more and more stable (generation #5451):<br />
 Eventually, things will enter an equilibrium, where the route no longer improves (generation #23801):<br />
 <img src="http://frankkvam.com/travellingsalesman/Generation%2023801%20-%20total%20length%20is%202044366888.small.png" alt="Equilibrium" />
 
-Perhaps not a great solution on its own, but combining this technique with traditional approaches can improve the results further. For example, having the initial route set to the result of a naive implementation of a closest neighbour algorithm rather than a random configuration will allow the genetic algorithm to improve upon something much more reasonable:
+Perhaps not a great solution on its own, but combining this technique with traditional approaches can improve the results further. For example, having the initial route set to the result of a naive implementation of a closest neighbour algorithm rather than a random configuration will allow the genetic algorithm to improve upon something much more reasonable:<br />
 <img src="http://frankkvam.com/travellingsalesman/initial%20state%20-%20closest%20neighbour.png" alt="Better initial state" />
