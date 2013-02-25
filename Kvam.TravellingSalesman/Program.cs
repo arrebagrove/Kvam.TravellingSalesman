@@ -18,7 +18,7 @@ namespace Kvam.TravellingSalesman
         Console.WriteLine("Drop images to folder:");
         outputPath = Console.ReadLine();
       }
-      var runner = new Runner(location: Runner.Location.Zimbabwe,
+      var runner = new Runner(location: Runner.Location.WesternSahara,
                               seed: 121285,
                               outputPath: outputPath);
       runner.Run();

@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClosestNeighbour.cs" />
     <Compile Include="TspSpecific\GenotypeImplementations\GenotypeEro.cs" />
     <Compile Include="Randomizer.cs" />
     <Compile Include="Runner.cs" />

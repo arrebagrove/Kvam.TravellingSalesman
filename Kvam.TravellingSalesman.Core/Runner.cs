@@ -15,6 +15,7 @@ namespace Kvam.TravellingSalesman.Core
     private readonly int _populationInGeneration;
     private readonly int _generationsToRun;
     private readonly int _minutesToRun;
+    private readonly bool _startWithRandomRoute;
 
     private readonly Location _location;
     private static double _numberOfRecombinations;
@@ -44,6 +45,7 @@ namespace Kvam.TravellingSalesman.Core
       _populationInGeneration = 500;
       _numberOfRecombinations = 0.72;
       _numberOfMutations = 5;
+      _startWithRandomRoute = false;
 
       if (!Directory.Exists(_logDirectory))
       {
@@ -63,8 +65,15 @@ namespace Kvam.TravellingSalesman.Core
     {
       LoadCities();
 
-      var generation = CreateRandomGeneration();
-
+      SalesmanGeneration generation;
+      if (_startWithRandomRoute)
+      {
+        generation = CreateRandomGeneration();
+      }
+      else
+      {
+        generation = CreateGenerationFromClostestNeighbour();
+      }
       BestSolutionGenotype3(generation);
     }
 
@@ -79,6 +88,25 @@ namespace Kvam.TravellingSalesman.Core
 
       generation.Items.Sort();
 
+      return generation;
+    }
+
+    private SalesmanGeneration CreateGenerationFromClostestNeighbour()
+    {
+      var route = new ClosestNeighbour(_cities, Distances).FindBest();
+
+
+      var pointList = route.Select(x => _cities[x]).ToList();
+
+      new Task(() => new Graphics.MapDrawer(_logDirectory + "Initial state - closest neighbour.png",
+                                            pointList.Select(x => new System.Drawing.Point((int)x.X, (int)x.Y)),
+                                            4000)).Start();
+
+      var generation = new SalesmanGeneration { PopulationInGeneration = _populationInGeneration };
+      for (int i = 0; i < generation.PopulationInGeneration; ++i)
+      {
+        generation.Add(new SalesmanPhenotype(new GenotypeEro((int[])route.Clone())));
+      }
       return generation;
     }
 
